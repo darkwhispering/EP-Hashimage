@@ -1,0 +1,11 @@
+.ep-hashimage .form-row {
+	padding: 15px 0 0 0;
+}
+
+.ep-hashimage pre {
+	border: 1px solid #ccc;
+	background: #eee;
+	width: auto;
+	display: inline-block;
+	margin: 2px 0;
+}
