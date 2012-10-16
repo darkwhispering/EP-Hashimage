@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 		if(async == 'true') {
 			// if refresh is true
 			if(refresh == 'true') {
-				getImages(this, link_path, dataurl)
+				getImages(this, link_path, dataurl);
 				setInterval(function(){
 					getImages(this, link_path, dataurl);
 				}, 900000);
