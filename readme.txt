@@ -2,14 +2,16 @@
 Contributors: Earth People, fjallstrom, darkwhispering
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plixi, plugin, social, images, image, widget, thumbnails, async
 Requires at least: 3.3.0
-Tested up to: 3.4.1
+Tested up to: 3.4.2
 Stable tag: 3.1.1
 
-Display image from a hashtag in your template, post/page or widget area using template tag, shortcode or the widget.
+Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 
 == Description ==
 
-This plugin search after hashtagged images on twitter and can fetch images from the following networks in the twitter search result.
+This plugin search after hashtagged images on twitter and/or Instagram.
+
+The Twitter search can fetch images from the following networks in the twitter search result.
 
 * twitpic
 * instagram
@@ -18,7 +20,7 @@ This plugin search after hashtagged images on twitter and can fetch images from 
 * flickr
 * pic.twitter.com.
 
-Adding more services is quite easy and can be done on request. URL’s are being curled and cached for 10-12 minutes using the Wordpress Transients API.
+URL’s are being curled and cached for 10-12 minutes using the Wordpress Transients API.
 
 The plugin, when enabled, exposes a template tag which you can add to your theme:
 
@@ -34,11 +36,15 @@ or you use the shortcode in your post and pages
 
 or add the widget in any of your widget areas.
 
-You will get an optionpage in the settings meny section with settings for thumbnails sizes in widget and shortcode. There is also an option for async loading, with that on `true` your page will load faster, show image in lightbox or original source, what networks to search in and if the plugin should autoload every 15 min.
+You will get an optionpage in the settings meny section with settings for thumbnails sizes in widget and shortcode. There is also an option for async loading, with that on `true` your page will load faster, show image in lightbox or original source, what network to search in and if the plugin should autoload every 15 min.
 
-Some notes:
+Some notes/known bugs:
 
 * The Twitter API only returns the latest results when searching on hashtag, so the result set is limited due to this.
+* The Instagram API required a client_id that you need to get from http://instagram.com/developer/
+* The Instagram API limits the search result to around max 20 images right now.
+* A documentation page is on the why with better info on how to use the plugin.
+* This beta will break old settings! Make sure you go over your settings again.
 
 == Installation ==
 
@@ -72,6 +78,12 @@ The plugin stores the cache folder in wordpress uplaods folder. If you get broke
 *The versions below 2.3.3 of the plugin used the webservers default temp folder as cache folder. For the most the will work perfect, but in some cases it might not and you end up with broken images as result. A quick fix for this is to go into the plugin folder and change the cache folder path in timthumb-config.php. This might be updated as an option in the settings page in the future.*
 
 == Changelog ==
+
+= 4.0.0b01 =
+* Most of the plugin has been rewritten to make it more flexible and easier to use.
+* Added support to search for images directly on instagram (instagram client_id key needed).
+* In beta, expect that thers might be some bug and errors if you try it.
+* This beta will break old settings! Make sure you go over your settings again.
 
 = 3.1.1 =
 * Fixed missing expire time for the caching

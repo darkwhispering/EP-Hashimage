@@ -4,7 +4,7 @@ Plugin Name: EP Hashimage
 Plugin URI: http://darkwhispering.com/wordpress-plugins
 Description: Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 Author: Mattias Hedman & Peder Fjällström
-Version: 4.0.0
+Version: 4.0.0b01
 Author URI: http://darkwhispering.com http://earthpeople.se
 */
 
@@ -40,7 +40,7 @@ if (!$_GET['asyncload']) {
         add_option('ep_hashimage_networks',$default_networks);
 
         // Plugin version
-        add_option('ep_hashimage_plugin_version','4.0.0');
+        update_option('ep_hashimage_plugin_version','4.0.0b01');
     }
     add_action('init','plugin_init',10);
 }
@@ -142,8 +142,8 @@ class Hashimage {
         if (isset($instagramjson) && isset($instagramjson->data)) {
             foreach ($instagramjson->data as $result) {
                 if (!empty($result->link) && !empty($result->images->standard_resolution->url)) {
-                    $images[md5($result->id)]['img'] = $result->images->standard_resolution->url;
-                    $images[md5($result->id)]['source'] = $result->link;
+                    $images[md5($result->images->standard_resolution->url)]['img'] = $result->images->standard_resolution->url;
+                    $images[md5($result->images->standard_resolution->url)]['source'] = $result->link;
                 }
             }
         }
@@ -180,11 +180,10 @@ class Hashimage {
     * Fetch the url
     **/
     private function _fetchurl($url = null, $ttl = 86400){
-        if ($url)
-        {
+        if ($url) {
             $option_name = 'hashimage_cache_'.md5($url);
 
-            // if (false === ($data = get_transient($option_name))) {
+            if (false === ($data = get_site_transient($option_name))) {
                 $ch = curl_init();
                 $options = array(
                     CURLOPT_URL => $url,
@@ -197,9 +196,9 @@ class Hashimage {
                 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
                 if($http_code === 200){
-                    // set_transient($option_name, $data, $ttl);
+                    set_site_transient($option_name, $data, $ttl);
                 }
-            // }
+            }
 
             return $data['chunk'];
         }

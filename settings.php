@@ -134,7 +134,7 @@ class epHashimageSettings {
                             </th>
                             <td>
                                 <input type="text" name="ep_hashimage_instagram_client_id" value="<?php echo !empty($settings['instagram_client_id']) ? $settings['instagram_client_id'] : ''; ?>" class="regular-text">
-                                <p class="description">To be able to use the instagram API that this plugin use, you need a client_id from Instagram. More info over att <a href="http://instagram.com/developer/">instagram docs</a> or follow <a href="#">this guide</a>.</p>
+                                <p class="description">To be able to use the instagram API that this plugin use, you need a client_id from Instagram. More info over att <a href="http://instagram.com/developer/">instagram docs</a> or follow <a href="http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key">this guide</a>.</p>
                             </td>
                         </tr>
                         <tr valign="top">
@@ -151,7 +151,7 @@ class epHashimageSettings {
                 <input type="submit" name="submit" value="Save" />
             </form>
                 
-            <p>For help, documentations and examples on how to use EP Hashimage. <a href="#">Visit the documentations</a></p>
+            <!-- <p>For help, documentations and examples on how to use EP Hashimage. <a href="">Visit the documentations</a></p> -->
 
             <?php /*
             <h2>How to use</h2>
@@ -184,9 +184,3 @@ function hashimage_menu() {
     add_submenu_page('options-general.php', 'EP Hashimage Settings', 'EP Hashimage', 'manage_options', 'ep-hashimage', 'ep_hashimage_settings');
 }
 add_action('admin_menu','hashimage_menu');
-
-// function hashimage_admin_css() {
-//     wp_register_style('hashimage_css', plugins_url('css/admin.css', __FILE__));
-//     wp_enqueue_style('hashimage_css');
-// }
-// add_action('admin_init','hashimage_admin_css');
