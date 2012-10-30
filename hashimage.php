@@ -403,7 +403,7 @@ include_once('widget.php');
 include_once('shortcode.php');
 
 // Include settings page
-include_once('settings.php');
+include_once('settings-page.php');
 
 //Frontpage JS and CSS
 function hashimage_js() {

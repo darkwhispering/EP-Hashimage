@@ -22,26 +22,12 @@ The Twitter search can fetch images from the following networks in the twitter s
 
 URL’s are being curled and cached for 10-12 minutes using the Wordpress Transients API.
 
-The plugin, when enabled, exposes a template tag which you can add to your theme:
-
-`<?php
-if(function_exists('hashimage')){
- echo hashimage('hashtag=unicorn&limit=5');
-}
-?>`
-
-or you use the shortcode in your post and pages
-
-`[hashimage hashtag="unicorn" limit="5"]`
-
-or add the widget in any of your widget areas.
-
-You will get an optionpage in the settings meny section with settings for thumbnails sizes in widget and shortcode. There is also an option for async loading, with that on `true` your page will load faster, show image in lightbox or original source, what network to search in and if the plugin should autoload every 15 min.
+The plugin, when enabled, exposes a template, shortcode, widget and a settings page.
 
 Some notes/known bugs:
 
 * The Twitter API only returns the latest results when searching on hashtag, so the result set is limited due to this.
-* The Instagram API required a client_id that you need to get from http://instagram.com/developer/
+* The Instagram API required a client_id that you need to get from http://instagram.com/developer/ [Follow this guide](http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key) if you don't know how to get one.
 * The Instagram API limits the search result to around max 20 images right now.
 * A documentation page is on the why with better info on how to use the plugin.
 * This beta will break old settings! Make sure you go over your settings again.
@@ -50,6 +36,13 @@ Some notes/known bugs:
 
 1. Upload the zipped file to yoursite/wp-content/plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
+
+== Upgrade Notice ==
+Upgrading to this beta version will break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widget.
+
+If the widget won't work, remove it from the widgeta area and readd an empty widget.
+
+The Instagram API required a client_id that you need to get from http://instagram.com/developer/ [Follow this guide](http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key) if you don't know how to get one.
 
 == Screenshots ==
 

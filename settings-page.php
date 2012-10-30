@@ -137,12 +137,6 @@ class epHashimageSettings {
                                 <p class="description">To be able to use the instagram API that this plugin use, you need a client_id from Instagram. More info over att <a href="http://instagram.com/developer/">instagram docs</a> or follow <a href="http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key">this guide</a>.</p>
                             </td>
                         </tr>
-                        <tr valign="top">
-                            <th scope="row">
-                            </th>
-                            <td>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <input type="hidden" name="action" value="update" />
