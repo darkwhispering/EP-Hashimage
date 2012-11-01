@@ -320,7 +320,8 @@ class Hashimage {
             'hashtag'       => $this->settings['hashtag'],
             'limit'         => $this->settings['limit'],
             'type'          => $this->settings['type'],
-            'async'         => $this->settings['async']
+            'async'         => $this->settings['async'],
+            'refresh'       => $this->settings['refresh']
         );
 
         // If async is true, add the async arguments as json in a data attribute and display a loading img and text.        
