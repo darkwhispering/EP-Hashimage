@@ -15,7 +15,7 @@ if (!$_GET['asyncload']) {
         add_option('ep_hashimage_img_display','lightbox');      // Display method of retrived images
         add_option('ep_hashimage_refresh','false');             // Auto reload search every 15 min
         add_option('ep_hashimage_network','twitter');           // Network to search in twitter/instagram
-        add_option('ep_hashimage_instagram_client_id',NULL);    // Instagram api client_id
+        //add_option('ep_hashimage_instagram_client_id',NULL);    // Instagram api client_id
 
         // Default image sizes
         $default_img_sizes = array(
@@ -60,8 +60,8 @@ class Hashimage {
             'async'                 => get_option('ep_hashimage_async'),
             'img_display'           => get_option('ep_hashimage_img_display'),
             'refresh'               => get_option('ep_hashimage_refresh'),
-            'img_sizes'             => get_option('ep_hashimage_img_sizes'),
-            'instagram_client_id'   => get_option('ep_hashimage_instagram_client_id')
+            'img_sizes'             => get_option('ep_hashimage_img_sizes')
+            //'instagram_client_id'   => get_option('ep_hashimage_instagram_client_id')
         );
 
         // Merge default settings with the new arguments from the user
@@ -77,7 +77,8 @@ class Hashimage {
         $this->twitterUrl .= '&lang=all&include_entities=true&rpp=500&tag='.str_replace('#','',$this->settings['hashtag']);
 
         // Instagram API with hashtag and client_id
-        $this->instagramUrl = 'https://api.instagram.com/v1/tags/'.str_replace('#','',$this->settings['hashtag']).'/media/recent?client_id='.$this->settings['instagram_client_id'];
+        $this->instagramUrl = 'https://api.instagram.com/v1/tags/'.str_replace('#','',$this->settings['hashtag']).'/media/recent?client_id=eee5f1d268ae4465b5931ce74a2f6ae5';
+        // $this->settings['instagram_client_id']
 
         // Do the magic
         $this->_init();

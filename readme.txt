@@ -1,5 +1,5 @@
 === EP Hashimage ===
-Contributors: Earth People, fjallstrom, darkwhispering
+Contributors: darkwhispering, Earth People, fjallstrom
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plixi, plugin, social, images, image, widget, thumbnails, async
 Requires at least: 3.3.0
 Tested up to: 3.4.2
