@@ -101,7 +101,7 @@ class epHashimageSettings {
                                 Twitter
                                 <br/>
                                 <?php $instagram_disabled = empty($settings['instagram_client_id']) ? 'disabled="disabled"' : ''; ?>
-                                <input type="checkbox" name="ep_hashimage_network[instagram]" value="instagram" <?php echo $check_instagram; ?> <?php //echo $instagram_disabled; ?>>
+                                <input type="checkbox" name="ep_hashimage_network[instagram]" value="instagram" <?php echo $check_instagram; ?> <?php echo $instagram_disabled; ?>>
                                 Instagram
                                 <?php if ($instagram_disabled) : ?>
                                     <p class="description">You need to add a Instagram API client id to be able to search for images on instagram!</p>
