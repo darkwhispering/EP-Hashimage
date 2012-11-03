@@ -72,6 +72,12 @@ The plugin stores the cache folder in wordpress uplaods folder. If you get broke
 
 == Changelog ==
 
+= 4.0.0b02 =
+* Fixed problem with refresh/autoload.
+* Renamed settings.php to settings-page.php for WP network support (having a settings.php breaks WP Network admin for some reason)
+* Better path handling to cache folder. Now works on wp sites that is hosting the installation in its own folder.
+
+
 = 4.0.0b01 =
 * Most of the plugin has been rewritten to make it more flexible and easier to use.
 * Added support to search for images directly on instagram (instagram client_id key needed).

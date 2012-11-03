@@ -13,8 +13,8 @@ class epHashimageSettings {
             'async'                 => get_option('ep_hashimage_async'),
             'img_display'           => get_option('ep_hashimage_img_display'),
             'refresh'               => get_option('ep_hashimage_refresh'),
-            'img_sizes'             => get_option('ep_hashimage_img_sizes')
-            //'instagram_client_id'   => get_option('ep_hashimage_instagram_client_id')
+            'img_sizes'             => get_option('ep_hashimage_img_sizes'),
+            'instagram_client_id'   => get_option('ep_hashimage_instagram_client_id')
         );
     ?>
         <div class="wrap ep-hashimage">
@@ -93,14 +93,14 @@ class epHashimageSettings {
                                     if ($settings['network']['twitter']) {
                                         $check_twitter = 'checked="checked"';
                                     }
-                                    if ($settings['network']['instagram'] /*&& !empty($settings['instagram_client_id'])*/) {
+                                    if ($settings['network']['instagram'] && !empty($settings['instagram_client_id'])) {
                                         $check_instagram = 'checked="checked"';
                                     }
                                 ?>
                                 <input type="checkbox" name="ep_hashimage_network[twitter]" value="twitter" <?php echo $check_twitter; ?>>
                                 Twitter
                                 <br/>
-                                <?php //$instagram_disabled = empty($settings['instagram_client_id']) ? 'disabled="disabled"' : ''; ?>
+                                <?php $instagram_disabled = empty($settings['instagram_client_id']) ? 'disabled="disabled"' : ''; ?>
                                 <input type="checkbox" name="ep_hashimage_network[instagram]" value="instagram" <?php echo $check_instagram; ?> <?php //echo $instagram_disabled; ?>>
                                 Instagram
                                 <?php if ($instagram_disabled) : ?>
@@ -128,7 +128,6 @@ class epHashimageSettings {
                             </td>
                         </tr>
                         
-                        <?php /*
                         <tr valign="top">
                             <th scope="row">
                                 Instagram Client Id
@@ -138,14 +137,10 @@ class epHashimageSettings {
                                 <p class="description">To be able to use the instagram API that this plugin use, you need a client_id from Instagram. More info over att <a href="http://instagram.com/developer/">instagram docs</a> or follow <a href="http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key">this guide</a>.</p>
                             </td>
                         </tr>
-                        */ ?>
                     </tbody>
                 </table>
                 <input type="hidden" name="action" value="update" />
-                <input type="hidden" name="page_options" value="ep_hashimage_async,ep_hashimage_img_display,ep_hashimage_refresh,ep_hashimage_img_sizes,ep_hashimage_network,ep_hashimage_networks" />
-                <?php /* Old with Instagram Client ID
                 <input type="hidden" name="page_options" value="ep_hashimage_async,ep_hashimage_img_display,ep_hashimage_refresh,ep_hashimage_img_sizes,ep_hashimage_instagram_client_id,ep_hashimage_network,ep_hashimage_networks" />
-                */ ?>
 
                 <input type="submit" name="submit" value="Save" />
             </form>
