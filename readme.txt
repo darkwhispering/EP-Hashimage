@@ -3,11 +3,33 @@ Contributors: darkwhispering, Earth People, fjallstrom
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plixi, plugin, social, images, image, widget, thumbnails, async
 Requires at least: 3.3.0
 Tested up to: 3.4.2
-Stable tag: 3.1.1
+Stable tag: 4.0.0
 
 Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 
 == Description ==
+
+**Version 4 is here!**
+
+The new version of EP Hashimage comes with re-written code, new features and bug fixes!
+
+**NEW**
+
+* Search directly on Instragram *(requires a Instagram client ID)*.
+* Reset the cache.
+* Navigate between images in the lightbox.
+* Wordpress Network Support *(Multisite)*.
+* Cleans the cache when deactivating the plugin *(no one want junk in the database!)*.
+* Cleans the timthumb cache when deactivating the plugin *(no one want junk on there server!)*.
+
+**FIXES**
+
+* Autoload is now smoother and displayes a loading indicator when running.
+* Better handling of and better path to the cache folder, no more problems.
+* Re-writte of the code, making the plugin faster and easier to expand in the future.
+* Image size in lightbox for Instagram images is fixed.
+
+**ABOUT**
 
 This plugin search after hashtagged images on twitter and/or Instagram.
 
@@ -24,13 +46,11 @@ URL’s are being curled and cached for 10-12 minutes using the Wordpress Transi
 
 The plugin, when enabled, exposes a template, shortcode, widget and a settings page.
 
-Some notes/known bugs:
+**Some notes**
 
-* The Twitter API only returns the latest results when searching on hashtag, so the result set is limited due to this.
+* The Twitter API only returns the latest results when searching on hashtag, so the result set is limited due to this. There are no exact limit but seems to be between 50-70. [More info here (see limitations)](https://dev.twitter.com/docs/using-search)
 * The Instagram API required a client_id that you need to get from http://instagram.com/developer/ [Follow this guide](http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key) if you don't know how to get one.
-* The Instagram API limits the search result to around max 20 images right now.
-* A documentation page is on the why with better info on how to use the plugin.
-* This beta will break old settings! Make sure you go over your settings again.
+* The Instagram API limits the search result to around max 20 images! Fix might come in the future. [More info here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram).
 
 == Installation ==
 
@@ -38,11 +58,11 @@ Some notes/known bugs:
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Upgrade Notice ==
-Upgrading to this beta version will break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widget.
+Upgrading to version 4+ from any version below **WILL** break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widget.
 
-If the widget won't work, remove it from the widgeta area and readd an empty widget.
+If the widget won't work, remove it from the widgeta area and read add it.
 
-The Instagram API required a client_id that you need to get from http://instagram.com/developer/ [Follow this guide](http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key) if you don't know how to get one.
+The Instagram API required a client_id that you need to get from http://instagram.com/developer/
 
 == Screenshots ==
 
@@ -54,29 +74,33 @@ The Instagram API required a client_id that you need to get from http://instagra
 
 == Frequently Asked Questions ==
 
-= The hashimage dont show anything! =
-
-If the plugin don't show anything for you this is probably due to that the search result from twitter it empty. Test with another hashtag or do a search in twitter.com with the hashtag you want to use. If there is no results on twitter.com you found why the plugin is blank on your site.
-
-= A search on twitter give results but I'm not getting anything on my site. =
-
-If you are using version 2.3.0, please upgrade to the latest version. the 2.3.0 version has a bug in the async option that can cause this behavior.
-
-If you are running the latest version, try to deactivate all other plugins to see if that help. Also check that the uploads folder have read/write permissions.
-
 = I'm getting a lot of broken links. =
 
-The plugin stores the cache folder in wordpress uplaods folder. If you get broken images the plugin is unable to create the cache files. Make sure that the uploads folder is read/writable.
+The plugin stores the cache folder in wordpress uploads folder. If you get broken images the plugin is unable to create the cache files. Make sure that the uploads folder is read/writable.
 
-*The versions below 2.3.3 of the plugin used the webservers default temp folder as cache folder. For the most the will work perfect, but in some cases it might not and you end up with broken images as result. A quick fix for this is to go into the plugin folder and change the cache folder path in timthumb-config.php. This might be updated as an option in the settings page in the future.*
+= It only displayes about 50 images when I set my limit to 100+ =
+
+Sadly, there are some limitations in both Twitter and Instagram.
+
+Instagram only return about 20 images on a search. You can find more information about it [here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram)
+There is a way to get more results form instagram, but my time is limited so it have to wait for now.
+
+Twitter only return results from the lates 6-8 days, and most of the time this result in 50 - 70 items depending on how popular the hashtag you use it. You can read more about this in the twitter search api documentations [here](https://dev.twitter.com/docs/using-search)
 
 == Changelog ==
+
+= 4.0.0 =
+* You can now navigate between images in the lightbox
+* Autoload function not work more smoothly and displayes a loader when running
+* Remove cache tool added to settings page
+* Delete timthumb cache when plugin is deactivated
+* Delete cache in database when plugin is deactivated
+* + all fixed and updates done in the beta versions
 
 = 4.0.0b02 =
 * Fixed problem with refresh/autoload.
 * Renamed settings.php to settings-page.php for WP network support (having a settings.php breaks WP Network admin for some reason)
 * Better path handling to cache folder. Now works on wp sites that is hosting the installation in its own folder.
-
 
 = 4.0.0b01 =
 * Most of the plugin has been rewritten to make it more flexible and easier to use.

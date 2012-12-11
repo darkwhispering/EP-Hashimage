@@ -4,11 +4,11 @@ Plugin Name: EP Hashimage
 Plugin URI: http://darkwhispering.com/wordpress-plugins
 Description: Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 Author: Mattias Hedman & Peder Fjällström
-Version: 4.0.0b02
-Author URI: http://darkwhispering.com http://earthpeople.se
+Version: 4.0.0
+Author URI: http://darkwhispering.com
 */
 
-define('HASHIMAGE_VERSION', '4.0.0b02');
+define('HASHIMAGE_VERSION', '4.0.0');
 
 if (!$_GET['asyncload']) {
     function plugin_init() {
@@ -90,9 +90,9 @@ class Hashimage {
     **/
     private function _init()
     {
-        $twitterjson = '';
-        $instagramjson = '';
-        $image = array();
+        $twitterjson    = '';
+        $instagramjson  = '';
+        $image          = array();
 
         // Check if we should load this asynct or not
         if (isset($_GET['asyncload']) || $this->settings['async'] === 'false')
@@ -115,8 +115,8 @@ class Hashimage {
                 if (isset($results->entities) && isset($results->entities->urls)) {
                     foreach ($results->entities->urls as $url) {
                         if (!empty($url->expanded_url) && !empty($url->url)) {
-                            $links[md5($url->expanded_url)]['img'] = $url->expanded_url;
-                            $links[md5($url->expanded_url)]['source'] = $url->url;
+                            $links[md5($url->expanded_url)]['img']      = $url->expanded_url;
+                            $links[md5($url->expanded_url)]['source']   = $url->url;
                         }
                     }
                 }
@@ -125,8 +125,8 @@ class Hashimage {
                 if (isset($results->entities) && isset($results->entities->media)) {
                     foreach ($results->entities->media as $image) {
                         if (!empty($image->media_url) && !empty($image->url)) {
-                            $images[md5($image->media_url)]['img'] = $image->media_url;
-                            $images[md5($image->media_url)]['source'] = $image->url;
+                            $images[md5($image->media_url)]['img']      = $image->media_url;
+                            $images[md5($image->media_url)]['source']   = $image->url;
                         }
                     }
                 }
@@ -144,8 +144,8 @@ class Hashimage {
         if (isset($instagramjson) && isset($instagramjson->data)) {
             foreach ($instagramjson->data as $result) {
                 if (!empty($result->link) && !empty($result->images->standard_resolution->url)) {
-                    $images[md5($result->images->standard_resolution->url)]['img'] = $result->images->standard_resolution->url;
-                    $images[md5($result->images->standard_resolution->url)]['source'] = $result->link;
+                    $images[md5($result->images->standard_resolution->url)]['img']      = $result->images->standard_resolution->url;
+                    $images[md5($result->images->standard_resolution->url)]['source']   = $result->link;
                 }
             }
         }
@@ -185,6 +185,7 @@ class Hashimage {
         if ($url) {
             $option_name = 'hashimage_cache_'.md5($url);
 
+            // Chec if cache of the urls allready exists, if not, get content of the url
             if (false === ($data = get_site_transient($option_name))) {
                 $ch = curl_init();
                 $options = array(
@@ -198,6 +199,7 @@ class Hashimage {
                 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
                 if($http_code === 200){
+                    // Set the new cache
                     set_site_transient($option_name, $data, $ttl);
                 }
             }
@@ -215,32 +217,32 @@ class Hashimage {
                 // yfrog.com
                 if (stristr($link['img'],'yfrog.com'))
                 {
-                    $images[md5($link['img'])]['img'] = $this->_extractyfrog($link['img']);
-                    $images[md5($link['img'])]['source'] = $link['source'];
+                    $images[md5($link['img'])]['img']       = $this->_extractyfrog($link['img']);
+                    $images[md5($link['img'])]['source']    = $link['source'];
                 }
                 // plixi.com
                 else if (stristr($link['img'],'plixi.com'))
                 {
-                    $images[md5($link['img'])]['img'] = $this->_extractplixi($link['img']);
-                    $images[md5($link['img'])]['source'] = $link['source'];
+                    $images[md5($link['img'])]['img']       = $this->_extractplixi($link['img']);
+                    $images[md5($link['img'])]['source']    = $link['source'];
                 }
                 // instagr.am
                 else if (stristr($link['img'],'instagr.am'))
                 {
-                    $images[md5($link['img'])]['img'] = $this->_extractinstagram($link['img']);
-                    $images[md5($link['img'])]['source'] = $link['source'];
+                    $images[md5($link['img'])]['img']       = $this->_extractinstagram($link['img']);
+                    $images[md5($link['img'])]['source']    = $link['source'];
                 }
                 // twitpic.com
                 else if (stristr($link['img'],'twitpic.com'))
                 {
-                    $images[md5($link['img'])]['img'] = $this->_extracttwitpic($link['img']);
-                    $images[md5($link['img'])]['source'] = $link['source'];
+                    $images[md5($link['img'])]['img']       = $this->_extracttwitpic($link['img']);
+                    $images[md5($link['img'])]['source']    = $link['source'];
                 }
                 // flic.kr
                 else if (stristr($link['img'],'flic.kr'))
                 {
-                    $images[md5($link['img'])]['img'] = $this->_extractflickr($link['img']);
-                    $images[md5($link['img'])]['source'] = $link['source'];
+                    $images[md5($link['img'])]['img']       = $this->_extractflickr($link['img']);
+                    $images[md5($link['img'])]['source']    = $link['source'];
                 }
             }
 
@@ -330,12 +332,13 @@ class Hashimage {
         if ($this->settings['async'] === 'true' && $_GET['asyncload'] != 'true')
         {
             $html .= "<ul class='hashimage-container' data-options='".json_encode($jsargs)."'>";
-            $html .= '<p><img src="'.plugins_url('loading.gif',__FILE__).'" alt="Loading"> Loading hashimages...</p>';
+            $html .= '<p class="hashimage-loading"><img src="'.plugins_url('loading.gif',__FILE__).'" alt="Loading"> Loading hashimages...</p>';
         }
         // If async is false or this is the actual async request, build the html
         else
         {
             $html .= "<ul class='hashimage-container' data-options='".json_encode($jsargs)."'>";
+            $html .= '<p class="hashimage-loading" style="sidplay:none;"><img src="'.plugins_url('loading.gif',__FILE__).'" alt="Loading"> Loading hashimages...</p>';
             if (!empty($images)) {
                 foreach ($images as $image) {
                     $html .= '<li>';
@@ -346,12 +349,12 @@ class Hashimage {
                         // If widget
                         if ($this->settings['type'] == 'widget' || $_GET['type'] == 'widget')
                         {
-                            $html .= '<a href="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['lightbox_w'].'&amp;h='.$this->settings['img_sizes']['lightbox_h'].'&amp;zc=2" rel="lightbox"><img src="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['widget_thumb_w'].'&amp;h='.$this->settings['img_sizes']['widget_thumb_h'].'" alt="Image loaded with Hashimage" /></a>'."\n";
+                            $html .= '<a href="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['lightbox_w'].'&amp;h='.$this->settings['img_sizes']['lightbox_h'].'&amp;zc=2" rel="lightbox-'.$this->settings['hashtag'].'"><img src="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['widget_thumb_w'].'&amp;h='.$this->settings['img_sizes']['widget_thumb_h'].'" alt="Image loaded with Hashimage" /></a>'."\n";
                         }
                         // If not widget
                         else
                         {
-                            $html .= '<a href="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['lightbox_w'].'&amp;h='.$this->settings['img_sizes']['lightbox_h'].'&amp;zc=2" rel="lightbox"><img src="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['thumb_w'].'&amp;h='.$this->settings['img_sizes']['thumb_h'].'" alt="Image loaded with Hashimage" /></a>'."\n";
+                            $html .= '<a href="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['lightbox_w'].'&amp;h='.$this->settings['img_sizes']['lightbox_h'].'&amp;zc=2" rel="lightbox-'.$this->settings['hashtag'].'"><img src="'.plugins_url('timthumb.php',__FILE__).'?src='.$image['img'].'&amp;w='.$this->settings['img_sizes']['thumb_w'].'&amp;h='.$this->settings['img_sizes']['thumb_h'].'" alt="Image loaded with Hashimage" /></a>'."\n";
                         }
                     }
                     // If image display method is original source
@@ -425,3 +428,17 @@ function hashimage_css() {
     wp_enqueue_style('hashimage_css');
 }
 add_action('wp_print_styles','hashimage_css');
+
+// IF the plugin is beeing deactivated
+function hashimage_deactivate() {
+    global $wpdb;
+    $wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name LIKE %s", '%hashimage_cache%'));
+
+    $wp_upload_dir = wp_upload_dir();
+    $cachdir = $wp_upload_dir['basedir'].'/ep_hashimage/';
+    foreach(glob($cachdir . '/*') as $file) { 
+        if(is_dir($file)) rrmdir($file); else unlink($file);
+    }
+    rmdir($cachdir);
+}
+register_deactivation_hook( __FILE__, 'hashimage_deactivate' );

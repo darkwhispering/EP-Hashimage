@@ -144,10 +144,27 @@ class epHashimageSettings {
 
                 <input type="submit" name="submit" value="Save" />
             </form>
+
+            <h3>Tools</h3>
+
+            <?php
+                $msg = '';
+                if ($_POST['clear_cache']) {
+                    global $wpdb;
+                    if($wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name LIKE %s", '%hashimage_cache%'))) {
+                        $msg = 'Cache cleared';
+                    }
+                }
+            ?>
+
+            <form method="post">
+                <input type="submit" class="button-secondary" value="Clear cache" name="clear_cache">
+                <?php if ($msg) : ?><span><?php echo $msg; ?></span><?php endif; ?>
+            </form>
+            <p class="description">Only use this if you don't have any other caching pugin installed. If you have a caching plugin, you need to clear the cache in the that plugins settings</p>
                 
             <!-- <p>For help, documentations and examples on how to use EP Hashimage. <a href="">Visit the documentations</a></p> -->
 
-            <?php /*
             <h2>How to use</h2>
             <p>There is three ways to use EP Hashimage on your Wordpress website. Either you use the available template tag, the shortcode or the included widget. More information about each option below.</p>
             
@@ -163,7 +180,6 @@ class epHashimageSettings {
 
             <h4>Widget</h4>
                 Go to your widget page and look for <strong>EP Hashimage</strong> and move it to your widget area. Options are title, hashtag and limit.
-            */ ?>
         </div>
     <?php
     }
