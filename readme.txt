@@ -2,8 +2,8 @@
 Contributors: darkwhispering, Earth People, fjallstrom
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plixi, plugin, social, images, image, widget, thumbnails, async
 Requires at least: 3.3.0
-Tested up to: 3.4.2
-Stable tag: 4.0.0
+Tested up to: 3.5.0
+Stable tag: 4.0.1
 
 Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 
@@ -88,6 +88,11 @@ There is a way to get more results form instagram, but my time is limited so it 
 Twitter only return results from the lates 6-8 days, and most of the time this result in 50 - 70 items depending on how popular the hashtag you use it. You can read more about this in the twitter search api documentations [here](https://dev.twitter.com/docs/using-search)
 
 == Changelog ==
+
+= 4.0.1 =
+* Tested on Wordpress 3.5
+* Better message after clearing cache on the settings page
+* Fixed broken style on save button in wordpress 3.5
 
 = 4.0.0 =
 * You can now navigate between images in the lightbox

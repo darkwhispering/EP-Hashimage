@@ -4,11 +4,11 @@ Plugin Name: EP Hashimage
 Plugin URI: http://darkwhispering.com/wordpress-plugins
 Description: Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 Author: Mattias Hedman & Peder Fjällström
-Version: 4.0.0
+Version: 4.0.1
 Author URI: http://darkwhispering.com
 */
 
-define('HASHIMAGE_VERSION', '4.0.0');
+define('HASHIMAGE_VERSION', '4.0.1');
 
 if (!$_GET['asyncload']) {
     function plugin_init() {

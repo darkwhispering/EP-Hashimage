@@ -20,6 +20,15 @@ class epHashimageSettings {
         <div class="wrap ep-hashimage">
             <div class="icon32" id="icon-options-general"><br></div>
             <h2>EP Hashimage settings</h2>
+
+            <?php
+                if ($_POST['clear_cache']) {
+                    global $wpdb;
+                    if($wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name LIKE %s", '%hashimage_cache%'))) {
+                        echo '<div class="updated"><p><strong>Cache cleared</strong></p></div>';
+                    }
+                }
+            ?>
                        
             <form method="post" action="options.php">
                 <?php wp_nonce_field('update-options'); ?>
@@ -142,30 +151,19 @@ class epHashimageSettings {
                 <input type="hidden" name="action" value="update" />
                 <input type="hidden" name="page_options" value="ep_hashimage_async,ep_hashimage_img_display,ep_hashimage_refresh,ep_hashimage_img_sizes,ep_hashimage_instagram_client_id,ep_hashimage_network,ep_hashimage_networks" />
 
-                <input type="submit" name="submit" value="Save" />
+                <input type="submit" name="submit" value="Save" class="button button-primary" />
             </form>
 
-            <h3>Tools</h3>
-
-            <?php
-                $msg = '';
-                if ($_POST['clear_cache']) {
-                    global $wpdb;
-                    if($wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name LIKE %s", '%hashimage_cache%'))) {
-                        $msg = 'Cache cleared';
-                    }
-                }
-            ?>
+            <br/><h2 class="title">Tools</h2><br/>
 
             <form method="post">
                 <input type="submit" class="button-secondary" value="Clear cache" name="clear_cache">
-                <?php if ($msg) : ?><span><?php echo $msg; ?></span><?php endif; ?>
             </form>
             <p class="description">Only use this if you don't have any other caching pugin installed. If you have a caching plugin, you need to clear the cache in the that plugins settings</p>
                 
             <!-- <p>For help, documentations and examples on how to use EP Hashimage. <a href="">Visit the documentations</a></p> -->
 
-            <h2>How to use</h2>
+            <br/><h2 class="title">How to use</h2>
             <p>There is three ways to use EP Hashimage on your Wordpress website. Either you use the available template tag, the shortcode or the included widget. More information about each option below.</p>
             
             <h4>Template Tag</h4>
