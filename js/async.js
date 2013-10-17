@@ -12,25 +12,22 @@ jQuery(document).ready(function($) {
 		var link_path = '.hashimage-container li a';
 
 		if(async == 'true') {
-			var that = $(this);
 			// if refresh is true
 			if(refresh == 'true') {
-				getImages(that, link_path, dataurl);
+				getImages(this, link_path, dataurl);
 				setInterval(function(){
-					$(that).find('li').fadeOut('fast');
-					$(that).find('p').fadeIn('fast');
-					getImages(that, link_path, dataurl);
+					getImages(this, link_path, dataurl);
 				}, 900000); // 900 000
 			// else, just load
 			} else {
-				getImages(that, link_path, dataurl);
+				getImages(this, link_path, dataurl);
 			}
 		}
 	});
 
 	function getImages(element, links, dataurl) {
 		$(element).load(dataurl, function(){
-			$(element).find('p').fadeOut('fast');
+			$(element).find('p').fadeOut();
 			$(links).each(function() {
 				if (!/android|iphone|ipod|series60|symbian|windows ce|blackberry/i.test(navigator.userAgent)) {
 					jQuery(function($) {
@@ -40,7 +37,6 @@ jQuery(document).ready(function($) {
 					});
 				}
 			});
-			$(element).fadeIn('slow');
 		});
 	}
 });

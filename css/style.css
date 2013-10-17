@@ -1,8 +1,8 @@
-.hashimage-container {
+.hashimage-list {
 	list-style: none;
 }
 
-.hashimage-container:after {
+.hashimage-list:after {
 	content: ".";
 	display: block;
 	clear: both;
@@ -11,6 +11,6 @@
 	visibility: hidden;
 }
 
-.hashimage-container li {
+.hashimage-list li {
 	float: left;
 }

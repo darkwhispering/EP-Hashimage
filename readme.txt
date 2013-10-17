@@ -1,33 +1,15 @@
 === EP Hashimage ===
 Contributors: darkwhispering, Earth People, fjallstrom
-Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plixi, plugin, social, images, image, widget, thumbnails, async
+Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plugin, social, images, image, widget, thumbnails, async, lightbox, slimbox, timthumb
 Requires at least: 3.3.0
-Tested up to: 3.5.0
-Stable tag: 4.0.1
+Tested up to: 3.6.1
+Stable tag: 5.0.0.a01
 
-Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
+**APLHA** Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 
 == Description ==
 
-**Version 4 is here!**
-
-The new version of EP Hashimage comes with re-written code, new features and bug fixes!
-
-**NEW**
-
-* Search directly on Instragram *(requires a Instagram client ID)*.
-* Reset the cache.
-* Navigate between images in the lightbox.
-* Wordpress Network Support *(Multisite)*.
-* Cleans the cache when deactivating the plugin *(no one want junk in the database!)*.
-* Cleans the timthumb cache when deactivating the plugin *(no one want junk on there server!)*.
-
-**FIXES**
-
-* Autoload is now smoother and displayes a loading indicator when running.
-* Better handling of and better path to the cache folder, no more problems.
-* Re-writte of the code, making the plugin faster and easier to expand in the future.
-* Image size in lightbox for Instagram images is fixed.
+**ALPHA release Version 5.0.0.a01**
 
 **ABOUT**
 
@@ -38,16 +20,14 @@ The Twitter search can fetch images from the following networks in the twitter s
 * twitpic
 * instagram
 * yfrog
-* plixi
-* flickr
-* pic.twitter.com.
 
-URL’s are being curled and cached for 10-12 minutes using the Wordpress Transients API.
+URL's are being curled and cached using the Wordpress Transients API.
 
 The plugin, when enabled, exposes a template, shortcode, widget and a settings page.
 
 **Some notes**
 
+* The Twitter API required a consumer key and secret that you need to get from https://dev.twitter.com [Follow this guide](http://darkwhispering.com/how-to/get-twitter-consumer-key-and-secret ) if you don't know how to get one.
 * The Twitter API only returns the latest results when searching on hashtag, so the result set is limited due to this. There are no exact limit but seems to be between 50-70. [More info here (see limitations)](https://dev.twitter.com/docs/using-search)
 * The Instagram API required a client_id that you need to get from http://instagram.com/developer/ [Follow this guide](http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key) if you don't know how to get one.
 * The Instagram API limits the search result to around max 20 images! Fix might come in the future. [More info here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram).
@@ -56,13 +36,12 @@ The plugin, when enabled, exposes a template, shortcode, widget and a settings p
 
 1. Upload the zipped file to yoursite/wp-content/plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Make sure your uploads folder is writeable.
 
 == Upgrade Notice ==
-Upgrading to version 4+ from any version below **WILL** break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widget.
+Upgrading to version 5+ from any version below **WILL** break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widget.
 
 If the widget won't work, remove it from the widgeta area and read add it.
-
-The Instagram API required a client_id that you need to get from http://instagram.com/developer/
 
 == Screenshots ==
 
@@ -76,7 +55,7 @@ The Instagram API required a client_id that you need to get from http://instagra
 
 = I'm getting a lot of broken links. =
 
-The plugin stores the cache folder in wordpress uploads folder. If you get broken images the plugin is unable to create the cache files. Make sure that the uploads folder is read/writable.
+The plugin stores the cache folder in wordpress uploads folder. If you get broken images the plugin is unable to create the cache files. Make sure that the uploads folder is read & writable.
 
 = It only displayes about 50 images when I set my limit to 100+ =
 
@@ -85,9 +64,26 @@ Sadly, there are some limitations in both Twitter and Instagram.
 Instagram only return about 20 images on a search. You can find more information about it [here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram)
 There is a way to get more results form instagram, but my time is limited so it have to wait for now.
 
-Twitter only return results from the lates 6-8 days, and most of the time this result in 50 - 70 items depending on how popular the hashtag you use it. You can read more about this in the twitter search api documentations [here](https://dev.twitter.com/docs/using-search)
+Twitter only return results from the lates 6-8 days, and most of the time this result in 50 - 70 items depending on how popular hashtag you use. You can read more about this in the twitter search api documentations [here](https://dev.twitter.com/docs/using-search)
 
 == Changelog ==
+
+= 5.0.0.a01 =
+* Plugin completely re-written
+* Updated to support the changes made in the Twitter API, July 2013
+* Fixed issues with caching of the images
+* Added Twitter consumer key settings option
+* Added Twitter consumer secret settings option
+* Added cache time settings option
+* Updated slimbox (lightbox) to latest version 2.05
+* Updated Timthumb to latest version 2.8.13
+* Removed async loading (will be back later)
+* Removed flickr as network
+* Removed plixi as network
+* Removed pic.twitter.com as network
+* Removed widget (will be back later)
+* Removed shortcode (will be back later)
+* Removed settings page (will be back later)
 
 = 4.0.1 =
 * Tested on Wordpress 3.5
