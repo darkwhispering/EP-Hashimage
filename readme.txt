@@ -25,6 +25,8 @@ URL's are being curled and cached using the Wordpress Transients API.
 
 The plugin, when enabled, exposes a template, shortcode, widget and a settings page.
 
+**New documentation page for version 5 is available [here](http://darkwhispering.com/documentation/hashimage)**
+
 **Some notes**
 
 * The Twitter API required a consumer key and secret that you need to get from https://dev.twitter.com [Follow this guide](http://darkwhispering.com/how-to/get-twitter-consumer-key-and-secret ) if you don't know how to get one.
