@@ -15,34 +15,37 @@ Class Hashimage_Core {
     **/
     function get_settings($args = array())
     {
+
+        $default_img_sizes = array(
+            'lightbox_w'        => 600,
+            'lightbox_h'        => 400,
+            'thumb_w'           => 100,
+            'thumb_h'           => 100,
+            'widget_thumb_w'    => 60,
+            'widget_thumb_h'    => 60
+        );
+
         // Setup settings array
         $default_settings = array(
             'hashtag'           => 'cats',
             'limit'             => 10,
-            'cache_time'        => 120,
             'type'              => 'plugin',
             'output'            => 'html',
-            'network'           => array('twitter' => 1,'instagram' => 1),
-            'networks'          => array('instagram.com', 'twitpic.com', 'yfrog.com'),
-            'img_display'       => 'source',
-            'img_sizes'         => array(
-                                    'lightbox_w'        => 600,
-                                    'lightbox_h'        => 400,
-                                    'thumb_w'           => 100,
-                                    'thumb_h'           => 100,
-                                    'widget_thumb_w'    => 60,
-                                    'widget_thumb_h'    => 60
-                                ),
-            'twitter_key'       => '',
-            'twitter_secret'    => '',
-            'client_id'         => ''
+            'cache_time'        => (get_option('ep_hashimage_cache_time')) ? get_option('ep_hashimage_cache_time') : 120,
+            'network'           => (get_option('ep_hashimage_network')) ? get_option('ep_hashimage_network') : array('twitter', 'instagram'),
+            'networks'          => (get_option('ep_hashimage_networks')) ? get_option('ep_hashimage_networks') : array('twitpic', 'yfrog', 'instagram'),
+            'img_display'       => (get_option('ep_hashimage_img_display')) ? get_option('ep_hashimage_img_display') : 'source',
+            'img_sizes'         => (get_option('ep_hashimage_img_sizes')) ? get_option('ep_hashimage_img_sizes') : $default_img_sizes,
+            'twitter_key'       => (get_option('ep_hashimage_twitter_key')) ? get_option('ep_hashimage_twitter_key') : '',
+            'twitter_secret'    => (get_option('ep_hashimage_twitter_secret')) ? get_option('ep_hashimage_twitter_secret') : '',
+            'client_id'         => (get_option('ep_hashimage_client_id')) ? get_option('ep_hashimage_client_id') : ''
         );
 
         // Merge the network setting
-        if (!empty($args['network'])) {
-            $default_settings['network'] = wp_parse_args($args['network'], $default_settings['network']);
-            unset($args['network']);
-        }
+        // if (!empty($args['network'])) {
+        //     $default_settings['network'] = wp_parse_args($args['network'], $default_settings['network']);
+        //     unset($args['network']);
+        // }
 
         // Merge img_sizes settings
         if (!empty($args['img_sizes'])) {
