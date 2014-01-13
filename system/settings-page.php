@@ -68,7 +68,8 @@ class Hashimage_Settings extends Hashimage_Core {
                                 Cache Time
                             </th>
                             <td>
-                                <input type="text" name="ep_hashimage_cache_time" value="<?php echo $settings['cache_time']; ?>" class="regular-text">
+                                <input type="number" name="ep_hashimage_cache_time" value="<?php echo $settings['cache_time']; ?>" class="regular-text">
+                                <p class="description">Time in seconds.</p>
                             </td>
                         </tr>
 
@@ -184,24 +185,6 @@ class Hashimage_Settings extends Hashimage_Core {
 
             <h4>Widget</h4>
                 Go to your widget page and look for <strong>EP Hashimage</strong> and move it to your widget area. Options are title, hashtag and limit.
-        </div>
-        */ ?>
-
-
-
-
-
-        <?php /*
-        <div class="wrap ep-hashimage">
-            <div class="icon32" id="icon-options-general"><br></div>
-            <h2>EP Hashimage settings</h2>
-
-            <strong>The settings panel is not available in the Alpha version</strong>
-
-            <p>To change any settings, edit the core.php file in the plugins folder. This is also the file you need to add your twitter app key and hash and also instagram client id.</p>
-
-            <p>More help here on how to create an <a href="" target="_bkank">Twitter app</a> or <a href="" target="_blank">Instagram app</a></p>
-
         </div>
         */ ?>
 

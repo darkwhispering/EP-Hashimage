@@ -4,89 +4,110 @@ Plugin Name: EP Hashimage
 Plugin URI: http://darkwhispering.com/wordpress-plugins
 Description: Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 Author: Mattias Hedman
-Version: 5.0.0.a01
+Version: 5.0.0
 Author URI: http://darkwhispering.com
 */
 
-define('HASHIMAGE_VERSION', '5.0.0.a01');
+// Set plugin version
+define('HASHIMAGE_VERSION', '5.0.0');
 
+// Load needed files
+require_once('system/core.php');
+require_once('system/twitter.php');
+require_once('system/instagram.php');
+require_once('system/builder.php');
+require_once('system/settings-page.php');
+require_once('system/shortcode.php');
+require_once('system/widget.php');
 
-require_once('core.php');
-require_once('twitter.php');
-require_once('instagram.php');
-require_once('builder.php');
-require_once('settings-page.php');
-
+// Lets do magic
 Class Hashimage extends Hashimage_Builder {
 
-    function __construct($args = array())
+    function __construct()
     {
-        parent::__construct();
-
-        $this->settings = $this->get_settings($args);
-
-        // Do the magic
-        $this->_init();
+        parent::__construct();       
     }
 
-    private function _init() {
+    /**
+    * Main function, getting feeds and build content to return
+    * 
+    * @param array
+    * @return string
+    **/
+    public function init($args = array()) {
 
-        if ($this->settings['network']['twitter'] && $this->settings['network']['instagram']) {
-            
-            // Both networks
-            $twitter = new Twitter($this->settings);
-            $instagram = new Instagram($this->settings);
+        // Update default settings with the users settings
+        $this->settings = $this->get_settings($args);
 
-            // Merge the two feeds togheter
-            $merged_feed = $this->merge_feeds($twitter->init(), $instagram->init());
+        // Request is async, create continer with all needed options
+        if ($this->settings['async'] == true) {
 
-            // Clean the feed from duplicates and limit it to the amount we want to display
-            $final_feed = $this->clean_feed($merged_feed);
+            // Create async container
+            return $this->build_async($this->settings);
 
-            if ($this->settings['img_display'] === 'lightbox') {
-                echo $this->build_lightbox($final_feed);
-            }
+        }
 
-            if ($this->settings['img_display'] === 'source') {
-                echo $this->build_source($final_feed);
-            }
+        // Request is not async, go ahead and load content
+        else {
 
-        } elseif (!$this->settings['network']['twitter'] && $this->settings['network']['instagram']) {
-            
-            // Only Instagram
-            $instagram = new Instagram($this->settings);
-            
-            // Create compelte feed
-            $merged_feed = $this->merge_feeds($instagram->init());
+            if ($this->settings['network']['twitter'] && $this->settings['network']['instagram']) {
+                
+                // Both networks
+                $twitter = new Twitter($this->settings);
+                $instagram = new Instagram($this->settings);
 
-            // Clean the feed from duplicates and limit it to the amount we want to display
-            $final_feed = $this->clean_feed($merged_feed);
+                // Merge the two feeds together
+                $merged_feed = $this->merge_feeds($twitter->init(), $instagram->init());
 
-            if ($this->settings['img_display'] === 'lightbox') {
-                echo $this->build_lightbox($final_feed);
-            }
+                // Clean the feed from duplicates and limit it to the amount we want to display
+                $final_feed = $this->clean_feed($merged_feed);
 
-            if ($this->settings['img_display'] === 'source') {
-                echo $this->build_source($final_feed);
-            }
+                if ($this->settings['img_display'] === 'lightbox') {
+                    return $this->build_lightbox($final_feed);
+                }
 
-        } elseif ($this->settings['network']['twitter'] && !$this->settings['network']['instagram']) {
-            
-            // Only Twitter
-            $twitter = new Twitter($this->settings);
-            
-            // Create compelte feed
-            $merged_feed = $this->merge_feeds($twitter->init());
+                if ($this->settings['img_display'] === 'source') {
+                    return $this->build_source($final_feed);
+                }
 
-            // Clean the feed from duplicates and limit it to the amount we want to display
-            $final_feed = $this->clean_feed($merged_feed);
+            } elseif (!$this->settings['network']['twitter'] && $this->settings['network']['instagram']) {
+                
+                // Only Instagram
+                $instagram = new Instagram($this->settings);
+                
+                // Create complete feed
+                $merged_feed = $this->merge_feeds($instagram->init());
 
-            if ($this->settings['img_display'] === 'lightbox') {
-                echo $this->build_lightbox($final_feed);
-            }
+                // Clean the feed from duplicates and limit it to the amount we want to display
+                $final_feed = $this->clean_feed($merged_feed);
 
-            if ($this->settings['img_display'] === 'source') {
-                echo $this->build_source($final_feed);
+                if ($this->settings['img_display'] === 'lightbox') {
+                    return $this->build_lightbox($final_feed);
+                }
+
+                if ($this->settings['img_display'] === 'source') {
+                    return $this->build_source($final_feed);
+                }
+
+            } elseif ($this->settings['network']['twitter'] && !$this->settings['network']['instagram']) {
+                
+                // Only Twitter
+                $twitter = new Twitter($this->settings);
+                
+                // Create compelte feed
+                $merged_feed = $this->merge_feeds($twitter->init());
+
+                // Clean the feed from duplicates and limit it to the amount we want to display
+                $final_feed = $this->clean_feed($merged_feed);
+
+                if ($this->settings['img_display'] === 'lightbox') {
+                    return $this->build_lightbox($final_feed);
+                }
+
+                if ($this->settings['img_display'] === 'source') {
+                    return $this->build_source($final_feed);
+                }
+
             }
 
         }
@@ -95,18 +116,26 @@ Class Hashimage extends Hashimage_Builder {
 
 }
 
+
+/**
+* Public open function, used for tempalte part, shortcode and widget
+**/
 function hashimage($args = array()) {
-    new Hashimage($args);
+    $hashimage = new Hashimage();
+
+    return $hashimage->init($args);
 }
 
 
-//Frontpage JS and CSS
+/**
+* Load frontend JS and CSS
+**/
 function hashimage_js() {
     wp_enqueue_script("jquery");
     wp_register_script('hashimage_js', plugins_url('js/slimbox2.js', __FILE__));
-    // wp_register_script('hashimage_js_async', plugins_url('js/async.js', __FILE__));
+    wp_register_script('hashimage_js_async', plugins_url('js/async.js', __FILE__));
     wp_enqueue_script('hashimage_js');
-    // wp_enqueue_script('hashimage_js_async');
+    wp_enqueue_script('hashimage_js_async');
 }
 add_action('wp_print_scripts','hashimage_js');
 

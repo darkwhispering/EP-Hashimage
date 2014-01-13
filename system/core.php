@@ -9,7 +9,7 @@ Class Hashimage_Core {
 
     /**
     * Default settings
-    *
+    * @access public
     * @param array
     * @return array
     **/
@@ -27,11 +27,12 @@ Class Hashimage_Core {
 
         // Setup settings array
         $default_settings = array(
+            'async'             => true,
             'hashtag'           => 'cats',
             'limit'             => 10,
             'type'              => 'plugin',
             'output'            => 'html',
-            'cache_time'        => (get_option('ep_hashimage_cache_time')) ? get_option('ep_hashimage_cache_time') : 120,
+            'cache_time'        => (get_option('ep_hashimage_cache_time')) ? get_option('ep_hashimage_cache_time') : 1200,
             'network'           => (get_option('ep_hashimage_network')) ? get_option('ep_hashimage_network') : array('twitter', 'instagram'),
             'networks'          => (get_option('ep_hashimage_networks')) ? get_option('ep_hashimage_networks') : array('twitpic', 'yfrog', 'instagram'),
             'img_display'       => (get_option('ep_hashimage_img_display')) ? get_option('ep_hashimage_img_display') : 'source',
@@ -40,12 +41,6 @@ Class Hashimage_Core {
             'twitter_secret'    => (get_option('ep_hashimage_twitter_secret')) ? get_option('ep_hashimage_twitter_secret') : '',
             'client_id'         => (get_option('ep_hashimage_client_id')) ? get_option('ep_hashimage_client_id') : ''
         );
-
-        // Merge the network setting
-        // if (!empty($args['network'])) {
-        //     $default_settings['network'] = wp_parse_args($args['network'], $default_settings['network']);
-        //     unset($args['network']);
-        // }
 
         // Merge img_sizes settings
         if (!empty($args['img_sizes'])) {
@@ -62,8 +57,9 @@ Class Hashimage_Core {
 
     /**
     * Format date
-    *
+    * 
     * @param string
+    * @param bool
     * @return string
     **/
     function format_date($date, $string = false)
@@ -80,8 +76,9 @@ Class Hashimage_Core {
 
     /**
     * Make sure hashtag include a hash or exluded
-    *
+    * 
     * @param string
+    * @param bool
     * @return string
     **/
     function validate_hash($hashtag, $add = true)
@@ -98,9 +95,9 @@ Class Hashimage_Core {
 
     /**
     * Fetch url
-    *
+    * 
     * @param string
-    * @return string
+    * @return json
     **/
     function fetch_url($url)
     {
@@ -119,7 +116,13 @@ Class Hashimage_Core {
 
     }
 
-
+    /**
+    * Merge feeds
+    * 
+    * @param array
+    * @param array
+    * @return array
+    **/
     function merge_feeds($f1 = array(), $f2 = array())
     {
 
@@ -164,6 +167,12 @@ Class Hashimage_Core {
 
     }
 
+    /**
+    * Clean the feed of duplicates
+    * 
+    * @param array
+    * @return array
+    **/
     function clean_feed($feed = array())
     {
 

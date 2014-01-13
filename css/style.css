@@ -2,15 +2,6 @@
 	list-style: none;
 }
 
-.hashimage-list:after {
-	content: ".";
-	display: block;
-	clear: both;
-	height: 0;
-	width: 0;
-	visibility: hidden;
-}
-
 .hashimage-list li {
-	float: left;
+	display: inline-block;
 }

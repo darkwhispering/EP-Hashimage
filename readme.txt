@@ -2,14 +2,12 @@
 Contributors: darkwhispering, Earth People, fjallstrom
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plugin, social, images, image, widget, thumbnails, async, lightbox, slimbox, timthumb
 Requires at least: 3.3.0
-Tested up to: 3.6.1
-Stable tag: 5.0.0.a01
+Tested up to: 3.8.0
+Stable tag: 5.0.0
 
-**APLHA** Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
+Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 
 == Description ==
-
-**ALPHA release Version 5.0.0.a01**
 
 **ABOUT**
 
@@ -21,7 +19,7 @@ The Twitter search can fetch images from the following networks in the twitter s
 * instagram
 * yfrog
 
-URL's are being curled and cached using the Wordpress Transients API.
+URL's are being curled and cached using the Wordpress Transients API. All content is loaded asynchronously, to have minimal impact on your sites loading time. It also refresh the feed asynchronously after the set cache time in the settings page. Default 20 minuter.
 
 The plugin, when enabled, exposes a template, shortcode, widget and a settings page.
 
@@ -30,18 +28,17 @@ The plugin, when enabled, exposes a template, shortcode, widget and a settings p
 **Some notes**
 
 * The Twitter API required a consumer key and secret that you need to get from https://dev.twitter.com [Follow this guide](http://darkwhispering.com/how-to/get-twitter-consumer-key-and-secret ) if you don't know how to get one.
-* The Twitter API only returns the latest results when searching on hashtag, so the result set is limited due to this. There are no exact limit but seems to be between 50-70. [More info here (see limitations)](https://dev.twitter.com/docs/using-search)
-* The Instagram API required a client_id that you need to get from http://instagram.com/developer/ [Follow this guide](http://darkwhispering.com/wp-plugins/ep-hashimage/get-a-instagram-client_id-key) if you don't know how to get one.
-* The Instagram API limits the search result to around max 20 images! Fix might come in the future. [More info here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram).
+* The Instagram API are using odd limits. If you set a limit of eg 20, you will never get 20 images back, it find 30 and then remove any that is private and give back all the images after that. A result can therefor be different on each request. I will be looking into a workaround for this in the future.
 
 == Installation ==
 
-1. Upload the zipped file to yoursite/wp-content/plugins
+1. Upload the zipped files content to yoursite/wp-content/plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Make sure your uploads folder is writeable.
+4. [Read the documentation](http://darkwhispering.com/documentation/hashimage) to get started, you need to get keys and secrets from Twitter and Instagram.
 
 == Upgrade Notice ==
-Upgrading to version 5+ from any version below **WILL** break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widget.
+Upgrading to version 5 from any version below **WILL** break your installed EP Hashimage plugins settings. After install, be sure to go over your settings again including widgets.
 
 If the widget won't work, remove it from the widgeta area and read add it.
 
@@ -63,29 +60,29 @@ The plugin stores the cache folder in wordpress uploads folder. If you get broke
 
 Sadly, there are some limitations in both Twitter and Instagram.
 
-Instagram only return about 20 images on a search. You can find more information about it [here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram)
-There is a way to get more results form instagram, but my time is limited so it have to wait for now.
+Instagram only return about 20-30 images on a search. You can find more information about it [here](http://stackoverflow.com/questions/12322028/what-is-the-maximum-number-of-requests-for-instagram)
+
+Also, the Instagram API are using odd limits. If you set a limit of eg 20, you will never get 20 images back, it finds 20 and then remove any that is private and give back all the images after that. A result can therefor be different on each request. I will be looking into a workaround for this in the future.
 
 Twitter only return results from the lates 6-8 days, and most of the time this result in 50 - 70 items depending on how popular hashtag you use. You can read more about this in the twitter search api documentations [here](https://dev.twitter.com/docs/using-search)
 
 == Changelog ==
 
-= 5.0.0.a01 =
+= 5.0.0 =
 * Plugin completely re-written
 * Updated to support the changes made in the Twitter API, July 2013
-* Fixed issues with caching of the images
+* Updated Slimbox (lightbox) to version 2.05
+* Updated Timthumb to version 2.8.13
 * Added Twitter consumer key settings option
 * Added Twitter consumer secret settings option
 * Added cache time settings option
-* Updated slimbox (lightbox) to latest version 2.05
-* Updated Timthumb to latest version 2.8.13
-* Removed async loading (will be back later)
-* Removed flickr as network
-* Removed plixi as network
-* Removed pic.twitter.com as network
-* Removed widget (will be back later)
-* Removed shortcode (will be back later)
-* Removed settings page (will be back later)
+* Fixed issues with caching of the images
+* Removed plixi as networks to search for on Twitter
+* Removed pic.twitter.com as networks to search for on Twitter
+* Removed Flickr as networks to search for on Twitter
+* Removed async option from settings page. Plugin will always load asynchronously.
+* Removed auto refresh option. It is now always auto refreshing and using the cache time a refresh time.
+* Tested on WP 3.8
 
 = 4.0.1 =
 * Tested on Wordpress 3.5

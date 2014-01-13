@@ -1,6 +1,6 @@
 <?php
 if(!defined('ABSPATH')){
-    require("../../../wp-load.php");
+    require("../../../../wp-load.php");
 	$wp_upload_dir = wp_upload_dir();
 	$cachdir = $wp_upload_dir['basedir'].'/ep_hashimage/';
 } else {
