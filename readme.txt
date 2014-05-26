@@ -1,9 +1,9 @@
 === EP Hashimage ===
 Contributors: darkwhispering, Earth People, fjallstrom
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plugin, social, images, image, widget, thumbnails, async, lightbox, slimbox, timthumb
-Requires at least: 3.3.0
-Tested up to: 3.8.0
-Stable tag: 5.0.0
+Requires at least: 3.0.0
+Tested up to: 3.9.1
+Stable tag: 5.0.1
 
 Display image by hashtag from twitter or instagram in your template, post/page or widget area using template tag, shortcode or the widget.
 
@@ -67,6 +67,10 @@ Also, the Instagram API are using odd limits. If you set a limit of eg 20, you w
 Twitter only return results from the lates 6-8 days, and most of the time this result in 50 - 70 items depending on how popular hashtag you use. You can read more about this in the twitter search api documentations [here](https://dev.twitter.com/docs/using-search)
 
 == Changelog ==
+
+= 5.0.1 =
+* Fixed Fatal error in core.php when using template code with URL query instead of array [support thread](http://wordpress.org/support/topic/fatal-error-after-update-from-401-to-500)
+* Fixed Fatal error in core.php in settings panel showing up for some users [support thread](http://wordpress.org/support/topic/also-getting-fatal-error-on-install)
 
 = 5.0.0 =
 * Plugin completely re-written

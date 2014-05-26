@@ -2,6 +2,8 @@
 
 Class Hashimage_Core {
 
+    static $this;
+
     function __construct()
     {
         self::$this;
@@ -15,6 +17,10 @@ Class Hashimage_Core {
     **/
     function get_settings($args = array())
     {
+        // Converting incoming args to array if they are URL query
+        if (!is_array($args)) {
+            $args = wp_parse_args($args, array());
+        }
 
         $default_img_sizes = array(
             'lightbox_w'        => 600,
