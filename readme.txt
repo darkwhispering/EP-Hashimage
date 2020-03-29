@@ -1,3 +1,5 @@
+!!!! Not maintained !!!!
+
 === EP Hashimage ===
 Contributors: darkwhispering, Earth People, fjallstrom
 Tags: tags, hashtag, hashimage, twitter, twitpic, instagram, flickr, yfrog, plugin, social, images, image, widget, thumbnails, async, lightbox, slimbox, timthumb
